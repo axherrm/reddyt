@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  reddyt-app:
+    build:
+      context: .
+      dockerfile: reddyt-app/Dockerfile
+    container_name: reddyt-app
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: development
+      DATABASE_URL: "postgresql://postgres:password@db:5432/blogdb"
+#      KEYCLOAK_URL: "http://keycloak:8080"
+#      KEYCLOAK_REALM: "blog-realm"
+#      KEYCLOAK_CLIENT_ID: "blog-client"
+#      KEYCLOAK_CLIENT_SECRET: "your-client-secret"
+    depends_on:
+      - db
+#      - keycloak
+#      - fluentd
+
+  db:
+    image: postgres:15
+    container_name: blog-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blogdb
+    volumes:
+      - blog-data:/var/lib/postgresql/data
+
+#  keycloak:
+#    image: quay.io/keycloak/keycloak:21.0.1
+#    container_name: blog-keycloak
+#    environment:
+#      KEYCLOAK_ADMIN: admin
+#      KEYCLOAK_ADMIN_PASSWORD: admin
+#      KC_DB: postgres
+#      KC_DB_URL_HOST: db
+#      KC_DB_URL_PORT: 5432
+#      KC_DB_USERNAME: postgres
+#      KC_DB_PASSWORD: password
+#      KC_DB_URL_DATABASE: blogdb
+#    ports:
+#      - "8080:8080"
+#    command: start-dev
+#    depends_on:
+#      - db
+
+#  fluentd:
+#    image: fluent/fluentd:v1.15
+#    container_name: blog-fluentd
+#    ports:
+#      - "24224:24224"
+#      - "24224:24224/udp"
+#    volumes:
+#      - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
+
+volumes:
+  blog-data:
