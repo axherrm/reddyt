@@ -33,6 +33,10 @@ During development the image can be re-build and -deployed with
 docker compose up -d --build reddyt-app
 ```
 
+To execute psql queries during development, execute
+```shell
+docker exec -it postgres-db /bin/psql -d blogs -U admin
+```
 ## Possible additional technologies
 
  - keycloak

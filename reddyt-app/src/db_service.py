@@ -11,6 +11,9 @@ class DBService:
         config = DBService.get_db_config()
         DBService.connection = PostgresqlDatabase(config["db_connect_string"])
         DBService.connection.connect()
+        from .model.comment import Comment
+        from .model.post import Post
+        DBService.connection.create_tables([Post, Comment])
         print("Successfully connected to PostgreSQL database.")
 
     @staticmethod

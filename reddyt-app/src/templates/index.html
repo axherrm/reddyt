@@ -3,11 +3,11 @@
 {% block content %}
     <h1>All Blog Posts</h1>
     <a href="/create-post">New Post</a>
-    <ul>
-{#        {% for post in posts %}#}
-{#        <li>#}
-{#            <a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a>#}
-{#        </li>#}
-{#        {% endfor %}#}
-    </ul>
+    <div>
+        {% for post in posts %}
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.content }}</p>
+            {% include '../components/comment-form.html' with context %}
+        {% endfor %}
+    </div>
 {% endblock %}
