@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{#
+#This is the Jinja base template from which all pages should inherit.
+For more information see https://jinja.palletsprojects.com/en/3.1.x/templates/#template-inheritance
+#}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>X-Ray - {% block title %}{% endblock %}</title>
+    <style>
+        :root {
+            {% block css_variables %}{% endblock %}
+        }
+        #content {
+            margin: 10px 15px;
+        }
+        {% block additional_style %}{% endblock %}
+    </style>
+    {% block additional_head %}{% endblock %}
+</head>
+<body>
+<div id="content">{% block content %}{% endblock %}</div>
+{#{% include "js/example.js" %}#}
+{% block script %}
+    <script></script>
+{% endblock %}
+</body>
+</html>

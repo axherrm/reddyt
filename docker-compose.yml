@@ -3,33 +3,44 @@ version: '3.9'
 services:
   reddyt-app:
     build:
-      context: .
-      dockerfile: reddyt-app/Dockerfile
+      context: ./reddyt-app/
     container_name: reddyt-app
     ports:
-      - "5000:5000"
+      - "80:80"
     environment:
-      FLASK_ENV: development
-      DATABASE_URL: "postgresql://postgres:password@db:5432/blogdb"
+      FLASK_ENV: production
+      DB_USER: admin
+      DB_PASSWORD: secure
+      DB_HOSTNAME: postgres-db
+      DB_PORT: 5432
+      DB_NAME: blogs
 #      KEYCLOAK_URL: "http://keycloak:8080"
 #      KEYCLOAK_REALM: "blog-realm"
 #      KEYCLOAK_CLIENT_ID: "blog-client"
 #      KEYCLOAK_CLIENT_SECRET: "your-client-secret"
     depends_on:
-      - db
+      - postgres-db
 #      - keycloak
 #      - fluentd
+    networks:
+      - reddyt
 
-  db:
-    image: postgres:15
-    container_name: blog-postgres
+# TODO: add second postgres instance and define leader / follower
+  postgres-db:
+    image: postgres:17.2
+    container_name: postgres-db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: blogdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secure
+      POSTGRES_DB: blogs
+    ports:
+      - "5432:5432"
     volumes:
       - blog-data:/var/lib/postgresql/data
+    networks:
+      - reddyt
 
+# TODO:
 #  keycloak:
 #    image: quay.io/keycloak/keycloak:21.0.1
 #    container_name: blog-keycloak
@@ -47,6 +58,8 @@ services:
 #    command: start-dev
 #    depends_on:
 #      - db
+#    networks:
+#      - reddyt
 
 #  fluentd:
 #    image: fluent/fluentd:v1.15
@@ -56,6 +69,11 @@ services:
 #      - "24224:24224/udp"
 #    volumes:
 #      - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf
+#    networks:
+#      - reddyt
 
 volumes:
   blog-data:
+
+networks:
+  reddyt:

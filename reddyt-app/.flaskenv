@@ -1,2 +1,2 @@
-FLASK_APP=src/app:start()
+FLASK_APP=src/app
 FLASK_DEBUG=1

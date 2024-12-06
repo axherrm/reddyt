@@ -23,10 +23,15 @@ python3 -m flask run
 ```
 
 ### Docker
+
 ```shell
-docker compose up
+docker compose up -d
 ```
 
+During development the image can be re-build and -deployed with
+```shell
+docker compose up -d --build reddyt-app
+```
 
 ## Possible additional technologies
 

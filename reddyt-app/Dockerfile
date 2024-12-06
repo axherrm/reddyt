@@ -22,11 +22,10 @@ COPY . .
 ARG WORKER_SCALE=4
 ENV WORKER_SCALE ${WORKER_SCALE}
 
+ENV PROXY_EXISTS True
+
 EXPOSE 80
 
 CMD nginx \
     && echo 'nginx is running now on http://localhost:80' \
-    && gunicorn -w ${WORKER_SCALE} -b localhost:5000 --log-level=debug 'reddyt-app.app:start(True)'
-
-#EXPOSE 5000
-#CMD ["flask", "run", "--host=0.0.0.0"]
+    && gunicorn -w ${WORKER_SCALE} -b localhost:5000 --log-level=debug 'src.app'

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Create Post{% endblock %}
+{% block content %}
+    <h1>Create Post</h1>
+    <form action="/api/create-post" method="post">
+        <textarea></textarea>
+        <button type="submit">Confirm create</button>
+    </form>
+{% endblock %}
