@@ -9,12 +9,16 @@ Reddit in bad and ugly
 > #### Prerequisites
 > - Phyton 3.13
 
+*Setup:*
 ```shell
 cd reddyt-app
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
-env FLASK_APP=reddyt-app.app:start
+```
+
+*Start flask:*
+```shell
 python3 -m flask run
 ```
 
@@ -22,3 +26,12 @@ python3 -m flask run
 ```shell
 docker compose up
 ```
+
+
+## Possible additional technologies
+
+ - keycloak
+ - helm
+ - Prometheus (+ Grafana)
+ - Fluentd (logs)
+ - Chaos Mesh (idk)
