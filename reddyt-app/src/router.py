@@ -10,16 +10,14 @@ class Router:
     def init_frontend(self):
         @self.app.get("/")
         def display_index():
-            # from .model.post import Post
-            # posts = Post.select()
-            # return render_template('index.html', posts=posts)
-            return render_template('index.html')
+            from .model.post import Post
+            return render_template('index.html', posts=Post.select())
 
         @self.app.get("/posts/<int:post_id>")
         def display_post(post_id):
             from .model.post import Post
-            post = Post.get_by_id(post_id)
-            return render_template('pages/post.html', post=post)
+            from .model.comment import Comment
+            return render_template('pages/post.html', post=Post.get_by_id(post_id), comments=Comment.select().where(Comment.post == post_id))
 
         @self.app.get("/create-post")
         def display_create_post():

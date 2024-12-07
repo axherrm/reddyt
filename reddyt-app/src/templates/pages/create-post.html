@@ -3,8 +3,14 @@
 {% block content %}
     <h1>Create Post</h1>
     <form action="/api/create-post" method="post">
-        <textarea name="title"></textarea>
-        <textarea name="content"></textarea>
+        <div>
+            <h3>Titel</h3>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <h3>Content</h3>
+            <textarea name="content"></textarea>
+        </div>
         <button type="submit">Confirm create</button>
     </form>
 {% endblock %}

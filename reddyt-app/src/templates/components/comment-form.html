@@ -1,5 +1,5 @@
 <form action="/api/create-comment" method="post">
-    <textarea name="content"></textarea>
+    <input type="text" name="content">
     <textarea hidden name="post-id">{{ post.id }}</textarea>
     <button type="submit">+</button>
 </form>

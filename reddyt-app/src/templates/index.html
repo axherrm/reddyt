@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 {% block title %}All Posts{% endblock %}
 {% block content %}
-    <h1>All Blog Posts</h1>
-    <a href="/create-post">New Post</a>
-    <div>
+    <h1>All Blog Posts <button type="button" onclick="location.href = '/create-post'">New Post</button></h1>
+    <table>
+        <tr>
+            <th>Blog Post</th>
+            <th>User</th>
+            <th>Created</th>
+        </tr>
         {% for post in posts %}
-            <h1>{{ post.title }}</h1>
-            <p>{{ post.content }}</p>
-            {% include '../components/comment-form.html' with context %}
+            <tr>
+                <td><a href="/posts/{{ post.id }}">{{ post.title }}</a></td>
+                <td>Dummy TODO</td>
+                <td>{{ post.timestamp }}</td>
+            </tr>
         {% endfor %}
-    </div>
+    </table>
 {% endblock %}
