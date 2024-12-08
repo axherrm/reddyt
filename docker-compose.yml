@@ -33,6 +33,7 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secure
       POSTGRES_DB: blogs
+    # TODO: remove
     ports:
       - "5432:5432"
     volumes:

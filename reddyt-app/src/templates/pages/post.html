@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Post {{ post.id }} {% endblock %}
 {% block content %}
-    <h1>Post: {{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <h2>Write Comment</h2>
-    {% include 'components/comment-form.html' with context %}
+    <div class="card">
+        <h1>Post: {{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+    </div>
+    <div class="card">
+        <h2>Write Comment</h2>
+        {% include 'components/comment-form.html' with context %}
+    </div>
     <h2>Comments</h2>
     {% for comment in comments %}
-        <div>{{ comment.content }}</div>
+        <div class="card">{{ comment.content }}</div>
     {% endfor %}
 {% endblock %}
