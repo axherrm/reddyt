@@ -1,6 +1,6 @@
 # Reddyt
 
-Reddit in bad and ugly
+Reddit in bad and uglY
 
 ## Run
 
