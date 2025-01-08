@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  reddyt-app:
+  reddyt-app: # TODO: doesn't work on linux
     build:
       context: ./reddyt-app/
     container_name: reddyt-app
@@ -25,7 +25,6 @@ services:
     networks:
       - reddyt
 
-# TODO: add second postgres instance and define leader / follower
   postgres-db:
     image: postgres:17.2
     container_name: postgres-db
@@ -33,11 +32,33 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secure
       POSTGRES_DB: blogs
-    # TODO: remove
+    # TODO: remove after development phase is done
     ports:
       - "5432:5432"
     volumes:
       - blog-data:/var/lib/postgresql/data
+    networks:
+      - reddyt
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 7080
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: Start123
+      KC_HEALTH_ENABLED: "true"
+      KC_LOG_LEVEL: info
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:7080/health/ready" ]
+      interval: 15s
+      timeout: 2s
+      retries: 15
+    command: ["start-dev", "--http-port", "7080", "--https-port", "7443"]
+    ports:
+      - "7080:7080"
+      - "7443:7443"
     networks:
       - reddyt
 
