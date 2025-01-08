@@ -8,6 +8,7 @@ Reddit in bad and uglY
 
 > #### Prerequisites
 > - Phyton 3.13
+> - Start Docker before running Flask
 
 *Setup:*
 ```shell
