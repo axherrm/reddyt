@@ -29,7 +29,7 @@ except Exception:
     print("No reverse proxy configured.")
 DBService.init()
 
-application.secret_key = EnvService.env.str("APP_SECRET_KEY")
+application.secret_key = EnvService.env("APP_SECRET_KEY")
 oauth = OAuth(application)
 keycloak = oauth.register(
     name="keycloak",

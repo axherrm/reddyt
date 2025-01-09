@@ -71,9 +71,7 @@ class Router:
                 return redirect(url_for('login'))
 
             from .env_service import EnvService
-            keycloak_logout_url = (
-                EnvService.env("KEYCLOAK_METADATA_URL").replace('/.well-known/openid-configuration', '/protocol/openid-connect/logout').replace('keycloak', 'localhost')
-            )
+            keycloak_logout_url = EnvService.env("KEYCLOAK_LOGOUT_URL")
             logout_params = {
                 'id_token_hint': id_token,
                 'post_logout_redirect_uri': url_for('login', _external=True), # EnvService.env("LOGOUT_REDIRECT_URI")

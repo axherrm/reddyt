@@ -17,6 +17,7 @@ services:
       KEYCLOAK_CLIENT_ID: reddyt-app
       KEYCLOAK_CLIENT_SECRET: EAk59O6S51jU0Frf2w8ZTGYhPJrtrS8c # In production this should be at least encrypted.
       KEYCLOAK_METADATA_URL: http://keycloak:7080/realms/reddyt/.well-known/openid-configuration
+      KEYCLOAK_LOGOUT_URL: http://localhost:7080/realms/reddyt/protocol/openid-connect/logout
       REDIRECT_URI: http://localhost/callback
       LOGOUT_REDIRECT_URI: http://localhost/login
       APP_SECRET_KEY: jhl43kj62kjblkqjrgh54hkjkl # This should also be at least encrypted in production.
