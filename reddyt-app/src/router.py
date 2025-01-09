@@ -43,17 +43,12 @@ class Router:
         def login():
             nonce = secrets.token_urlsafe(16)
             session['nonce'] = nonce
-            # from .env_service import EnvService
             redirect_uri = url_for('callback', _external=True) # EnvService.env("REDIRECT_URI")
             return self.keycloak.authorize_redirect(redirect_uri, nonce=nonce)
 
         @self.app.route("/callback")
         def callback():
             try:
-                # TODO: remove
-                print(request.args.get('state'), file=sys.stdout)
-                print(session, file=sys.stdout)
-                sys.stdout.flush()
                 token = self.keycloak.authorize_access_token()
                 session['token'] = token
                 user_info = self.keycloak.parse_id_token(token, session.pop("nonce", None))
@@ -77,7 +72,7 @@ class Router:
 
             from .env_service import EnvService
             keycloak_logout_url = (
-                f"{EnvService.env("KEYCLOAK_METADATA_URL").replace('/.well-known/openid-configuration', '')}/protocol/openid-connect/logout"
+                EnvService.env("KEYCLOAK_METADATA_URL").replace('/.well-known/openid-configuration', '/protocol/openid-connect/logout').replace('keycloak', 'localhost')
             )
             logout_params = {
                 'id_token_hint': id_token,

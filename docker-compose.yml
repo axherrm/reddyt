@@ -19,7 +19,7 @@ services:
       KEYCLOAK_METADATA_URL: http://keycloak:7080/realms/reddyt/.well-known/openid-configuration
       REDIRECT_URI: http://localhost/callback
       LOGOUT_REDIRECT_URI: http://localhost/login
-      APP_SECRET_KEY: jhl43kj62kjblkqjrgh54hkjkl
+      APP_SECRET_KEY: jhl43kj62kjblkqjrgh54hkjkl # This should also be at least encrypted in production.
     depends_on:
       - postgres-db
       - keycloak
