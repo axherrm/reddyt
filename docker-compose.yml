@@ -34,6 +34,8 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secure
       POSTGRES_DB: blogs
+    ports: # It's not necessary to declare this for docker-only usage. However, as we are still running the app locally sometimes, we left it in.
+      - "5432:5432"
     volumes:
       - blog-data:/var/lib/postgresql/data
     networks:
