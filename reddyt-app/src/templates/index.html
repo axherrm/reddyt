@@ -11,7 +11,7 @@
         {% for post in posts %}
             <tr>
                 <td><a href="/posts/{{ post.id }}">{{ post.title }}</a></td>
-                <td>Dummy TODO</td>
+                <td>{{ post.user.last_name }}, {{ post.user.first_name }}</td>
                 <td>{{ post.timestamp }}</td>
             </tr>
         {% endfor %}

@@ -1,10 +1,14 @@
-# from peewee import *
-#
-# from db_service import DBService
-#
-#
-# class User(Model):
-#
-#     class Meta:
-#         database = DBService.connection
-# TODO: automatically save keycloak user to DB
+from peewee import *
+
+from ..db_service import DBService
+
+
+class User(Model):
+
+    username = CharField(unique=True, primary_key=True)
+    last_name = CharField()
+    first_name = CharField()
+    email = CharField()
+
+    class Meta:
+        database = DBService.connection

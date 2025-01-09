@@ -2,8 +2,9 @@
 {% block title %}Post {{ post.id }} {% endblock %}
 {% block content %}
     <div class="card">
-        <h1>Post: {{ post.title }}</h1>
-        <p>{{ post.content }}</p>
+        <h1 style="overflow: hidden; text-overflow: ellipsis">Post: {{ post.title }}</h1>
+        <p style="overflow: hidden; overflow-wrap: break-word">{{ post.content }}</p>
+        <p style="overflow: hidden; text-overflow: clip">Author: {{ post.user.last_name }}, {{ post.user.first_name }} ({{ post.user.email }})</p>
     </div>
     <div class="card">
         <h2>Write Comment</h2>
@@ -11,6 +12,9 @@
     </div>
     <h2>Comments</h2>
     {% for comment in comments %}
-        <div class="card">{{ comment.content }}</div>
+        <div class="card" style="overflow: hidden; overflow-wrap: break-word">
+            {{ comment.content }}
+            <p style="overflow: hidden; text-overflow: clip">Author: {{ comment.user.last_name }}, {{ comment.user.first_name }} ({{ comment.user.email }})</p>
+        </div>
     {% endfor %}
 {% endblock %}
