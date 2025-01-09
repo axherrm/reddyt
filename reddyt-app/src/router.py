@@ -1,4 +1,5 @@
 import secrets
+import sys
 
 from authlib.oauth2 import OAuth2Error
 from flask import render_template, redirect, url_for, session
@@ -42,12 +43,17 @@ class Router:
         def login():
             nonce = secrets.token_urlsafe(16)
             session['nonce'] = nonce
-            redirect_uri = url_for('callback', _external=True)
+            # from .env_service import EnvService
+            redirect_uri = url_for('callback', _external=True) # EnvService.env("REDIRECT_URI")
             return self.keycloak.authorize_redirect(redirect_uri, nonce=nonce)
 
         @self.app.route("/callback")
         def callback():
             try:
+                # TODO: remove
+                print(request.args.get('state'), file=sys.stdout)
+                print(session, file=sys.stdout)
+                sys.stdout.flush()
                 token = self.keycloak.authorize_access_token()
                 session['token'] = token
                 user_info = self.keycloak.parse_id_token(token, session.pop("nonce", None))
@@ -75,7 +81,7 @@ class Router:
             )
             logout_params = {
                 'id_token_hint': id_token,
-                'post_logout_redirect_uri': url_for('login', _external=True),
+                'post_logout_redirect_uri': url_for('login', _external=True), # EnvService.env("LOGOUT_REDIRECT_URI")
             }
             session.clear()
             return redirect(

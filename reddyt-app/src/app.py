@@ -1,6 +1,8 @@
 import os
 
 from authlib.integrations.flask_client import OAuth
+from authlib.integrations.flask_oauth2 import requests
+from authlib.jose import JsonWebKey
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -27,11 +29,21 @@ except Exception:
     print("No reverse proxy configured.")
 DBService.init()
 
-application.secret_key = os.urandom(24)
+application.secret_key = EnvService.env.str("APP_SECRET_KEY")
 oauth = OAuth(application)
-keycloak = oauth.register(name="keycloak", client_id=EnvService.env("KEYCLOAK_CLIENT_ID"),
-    client_secret=EnvService.env("KEYCLOAK_CLIENT_SECRET"), server_metadata_url=EnvService.env("KEYCLOAK_METADATA_URL"),
-    client_kwargs={"scope": "openid profile email"}, )
+# jwks = JsonWebKey.import_key_set(requests.get('http://keycloak:7080/realms/my-realm/protocol/openid-connect/certs').json())
+keycloak = oauth.register(
+    name="keycloak",
+    client_id=EnvService.env("KEYCLOAK_CLIENT_ID"),
+    client_secret=EnvService.env("KEYCLOAK_CLIENT_SECRET"),
+    server_metadata_url=EnvService.env("KEYCLOAK_METADATA_URL"),
+    # issuer="http://localhost:7080/realms/reddyt",
+    # authorize_url='http://localhost:7080/realms/reddyt/protocol/openid-connect/auth',
+    # access_token_url='http://keycloak:7080/realms/reddyt/protocol/openid-connect/token',
+    # jwks_uri='http://keycloak:7080/realms/reddyt/protocol/openid-connect/certs',
+    # jwks=jwks,
+    client_kwargs={"scope": "openid profile email"},
+)
 
 router = Router(application, keycloak)
 
