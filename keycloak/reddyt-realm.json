@@ -367,7 +367,7 @@
       "protocol": "openid-connect",
       "attributes": {
         "client.secret.creation.time": "1736345889",
-        "post.logout.redirect.uris": "http://localhost/login##http://127.0.0.1:5000/callback",
+        "post.logout.redirect.uris": "http://localhost/login##http://127.0.0.1:5000/login",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "use.refresh.tokens": "true",
