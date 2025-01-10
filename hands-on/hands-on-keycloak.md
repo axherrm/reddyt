@@ -21,7 +21,6 @@ We’re keeping it simple here—a lightweight Flask app with just enough sauce 
 `requirements.txt`:  
 ```text
 Flask==3.1.0
-Jinja2==3.1.4
 Authlib==1.3.2
 python-keycloak==5.1.1
 ```

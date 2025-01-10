@@ -4,4 +4,7 @@ app = Flask(__name__)
 
 @app.get("/")
 def display_index():
-    return "Hello World!"
+    return """
+    <p>Hello World!</p>
+    <p><a href="/logout">Logout</a></p>
+    """
