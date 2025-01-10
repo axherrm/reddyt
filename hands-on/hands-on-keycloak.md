@@ -1,4 +1,6 @@
-# How to Secure a Simple Web with Keycloak
+# How to Secure a Simple Web App with Keycloak
+
+**See on Medium: https://medium.com/@preich21/securing-a-flask-app-with-keycloak-in-docker-14ee5bb57aca**
 
 Picture this: you’ve built the Mona Lisa of web apps. It’s sleek, responsive, and your mom already told all her friends about it. 
 But there’s a problem—who’s sneaking in? The neighbor’s cat? Your ex? The bots plotting to sell your user data?
@@ -14,7 +16,7 @@ By the end, your app will have more swagger than a nightclub with a velvet rope.
 ## Step 1: Setup Simple Web App
 Alright, it’s time to roll up our sleeves and get down to business. Before Keycloak can work its magic, we need a web app that’s ready to welcome it with open arms (and a solid codebase). Think of this as setting up the stage for Keycloak to come in and steal the show.  
 
-### Gather Your Ingredients  
+### Gather Your Ingredients
 
 We’re keeping it simple here—a lightweight Flask app with just enough sauce to showcase Keycloak’s power. First, let’s get those dependencies in line:  
 
@@ -24,7 +26,8 @@ Flask==3.1.0
 Authlib==1.3.2
 python-keycloak==5.1.1
 ```
-Why these? Flask is our go-to for quick and clean web apps, Jinja2 handles the templating, and Authlib plus python-keycloak will help us tango with Keycloak like pros.
+Why these? Flask is our go-to for quick and clean web apps and Authlib plus python-keycloak will help us tango with Keycloak like pros.
+
 ### Hello, Flask!
 
 Next, whip up a simple `app.py` to get the app running:
