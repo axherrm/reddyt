@@ -1,4 +1,4 @@
-# Hands On Keycloak
+# How to Secure a Simple Web with Keycloak
 
 Picture this: you’ve built the Mona Lisa of web apps. It’s sleek, responsive, and your mom already told all her friends about it. 
 But there’s a problem—who’s sneaking in? The neighbor’s cat? Your ex? The bots plotting to sell your user data?
@@ -51,7 +51,7 @@ python3 -m flask run
 If everything goes smoothly, you’ll see your app live at http://127.0.0.1:5000. 
 Open it up in your browser, and there it is: a humble “Hello World!” waiting to grow into something much cooler.
 
-## Step 2: Dockerize your app
+## Step 2: Dockerize Your App
 
 So, your app is running locally, and you’re feeling like a coding wizard. 
 But let’s be honest—what’s the point if it can’t break free from your laptop and live its best life in the cloud (or at least on a server)? 
@@ -123,7 +123,7 @@ To check that it's running, navigate to http://localhost in your browser, and vo
 Your app is now running inside a Docker container. 
 The “Hello World!” is still humble, but now it’s got a passport to travel anywhere Docker is allowed.
 
-## Step 3: Secure your useless app with Keycloak
+## Step 3: Secure Your Useless App with Keycloak
 
 Congrats, you’ve built the perfect playground for Keycloak to show off its skills. 
 In this section, we’ll bring in the bouncer, set up the ID checks, and make sure no shady characters sneak past the door. 
