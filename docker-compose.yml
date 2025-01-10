@@ -7,20 +7,8 @@ services:
     container_name: reddyt-app
     ports:
       - "80:80"
-    environment:
-      FLASK_ENV: production
-      DB_USER: admin
-      DB_PASSWORD: secure
-      DB_HOSTNAME: postgres-db
-      DB_PORT: 5432
-      DB_NAME: blogs
-      KEYCLOAK_CLIENT_ID: reddyt-app
-      KEYCLOAK_CLIENT_SECRET: EAk59O6S51jU0Frf2w8ZTGYhPJrtrS8c # In production this should be at least encrypted.
-      KEYCLOAK_METADATA_URL: http://keycloak:7080/realms/reddyt/.well-known/openid-configuration
-      KEYCLOAK_LOGOUT_URL: http://localhost:7080/realms/reddyt/protocol/openid-connect/logout
-      REDIRECT_URI: http://localhost/callback
-      LOGOUT_REDIRECT_URI: http://localhost/login
-      APP_SECRET_KEY: jhl43kj62kjblkqjrgh54hkjkl # This should also be at least encrypted in production.
+    env_file:
+      - "reddyt-app.env.docker"
     depends_on:
       - postgres-db
       - keycloak
@@ -51,14 +39,8 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:24.0
     container_name: keycloak
-    environment:
-      KC_HOSTNAME: localhost
-      KC_HOSTNAME_STRICT_BACKCHANNEL: false
-      KC_HOSTNAME_PORT: 7080
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: Start123
-      KC_HEALTH_ENABLED: "true"
-      KC_LOG_LEVEL: info
+    env_file:
+      - "keycloak.env.docker"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://keycloak:7080/health/ready" ]
       interval: 15s

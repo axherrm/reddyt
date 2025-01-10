@@ -26,9 +26,9 @@ For more information see https://jinja.palletsprojects.com/en/3.1.x/templates/#t
     <h1 style="color: white; font-family: Arial, sans-serif; margin: 0;">Reddyt</h1>
     <div style="margin-left: auto; display: flex">
         <p>Logged-in as: {{ user.last_name }}, {{ user.first_name }} ({{ user.email }})</p>
-        <form action="/logout" method="post">
-            <button type="submit">Logout</button>
-        </form>
+        <a href="/logout">
+            <button>Logout</button>
+        </a>
     </div>
 </div>
 <div id="content">{% block content %}{% endblock %}</div>

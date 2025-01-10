@@ -1,5 +1,4 @@
 import secrets
-import sys
 
 from authlib.oauth2 import OAuth2Error
 from flask import render_template, redirect, url_for, session
@@ -43,7 +42,7 @@ class Router:
         def login():
             nonce = secrets.token_urlsafe(16)
             session['nonce'] = nonce
-            redirect_uri = url_for('callback', _external=True) # EnvService.env("REDIRECT_URI")
+            redirect_uri = url_for('callback', _external=True)
             return self.keycloak.authorize_redirect(redirect_uri, nonce=nonce)
 
         @self.app.route("/callback")
@@ -54,6 +53,9 @@ class Router:
                 user_info = self.keycloak.parse_id_token(token, session.pop("nonce", None))
                 session['user'] = user_info
                 from .model.user import User
+                # Notice that it would be really clean if this not only created the user if they're not present, but
+                # also update the user's data if it changed. However, we disabled changing user data in Keycloak so we
+                # won't invest the time here.
                 User.get_or_create(
                         username=user_info["sub"],
                         email=user_info["email"],
@@ -64,7 +66,7 @@ class Router:
             except OAuth2Error as error:
                 return f"Authentication failed: {error.description}"
 
-        @self.app.post('/logout')
+        @self.app.route('/logout')
         def logout():
             id_token = session['token']['id_token']
             if not id_token:
@@ -74,7 +76,7 @@ class Router:
             keycloak_logout_url = EnvService.env("KEYCLOAK_LOGOUT_URL")
             logout_params = {
                 'id_token_hint': id_token,
-                'post_logout_redirect_uri': url_for('login', _external=True), # EnvService.env("LOGOUT_REDIRECT_URI")
+                'post_logout_redirect_uri': url_for('login', _external=True),
             }
             session.clear()
             return redirect(

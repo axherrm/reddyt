@@ -1,8 +1,4 @@
-import os
-
 from authlib.integrations.flask_client import OAuth
-from authlib.integrations.flask_oauth2 import requests
-from authlib.jose import JsonWebKey
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
